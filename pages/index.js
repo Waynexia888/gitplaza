@@ -4,12 +4,17 @@ import { Button } from 'antd'
 
 export default () => {
     function gotoTestB() {
-        Router.push('/test/b')
+        Router.push({
+            pathname: '/test/b',
+            query: {
+                id: 2
+            }
+        })
     }
 
     return (
         <div>
-            <Link href='/a'>
+            <Link href='/a?id=1'>
                 <Button>Index</Button>
             </Link>
         <Button onClick={gotoTestB}>test</Button>
