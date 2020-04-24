@@ -9,12 +9,12 @@ export default () => {
             query: {
                 id: 2
             }
-        })
+        }, '/test/b/2')
     }
 
     return (
         <div>
-            <Link href='/a?id=1'>
+            <Link href='/a?id=1' as="/a/1">
                 <Button>Index</Button>
             </Link>
         <Button onClick={gotoTestB}>test</Button>
