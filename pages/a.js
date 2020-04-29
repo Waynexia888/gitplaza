@@ -2,13 +2,17 @@ import { withRouter } from 'next/router'
 import Link from 'next/link'
 import Comp from '../components/comp'
 import Head from 'next/head'
+import styled from 'styled-components'
 
 const color = 'orange'
 
-
-// const A = ({ router }) => <Link href="#aaa"><a>A {router.query.id}</a></Link>
+const Title = styled.h1`
+    color: yellow;
+    font-size: 40px;
+`
 const A = ({ router, name }) => (
     <>
+        <Title>This is Title</Title>
         < Link href = "#aaa">
             <a className="link">
                 A {router.query.id} {name}
@@ -22,7 +26,7 @@ const A = ({ router, name }) => (
                 color: ${color};
             }
         `}</style>
-        <style jax global>{`
+        <style jsx global>{`
             a {
                 color: yellow
             }
