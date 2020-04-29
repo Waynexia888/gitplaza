@@ -8,5 +8,6 @@
             // "style": true
         }],
         ["styled-components", { "ssr": true }]
+
     ]
 }
