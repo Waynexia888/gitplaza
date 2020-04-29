@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect, useReducer, useLayoutEffect } from 'react'
 
 // class MyCount extends React.Component {
 //     state = {
@@ -38,14 +38,31 @@ function MyCountFunc() {
     // const [count, setCount] = useState(0) //[a, b]
 
     const [ count, dispatchCount ] = useReducer(countReducer, 0)
+    const [name, setName] = useState('jocky')
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         // setCount(c => c + 1)
+    //         dispatchCount({ type: 'minus' })
+    //     }, 1000)
+    //     return () => clearInterval(interval)
+    // }, [])
+
     useEffect(() => {
-        const interval = setInterval(() => {
-            // setCount(c => c + 1)
-            dispatchCount({ type: 'minus' })
-        }, 1000)
-        return () => clearInterval(interval)
-    }, [])
-    return <span>Count: {count}</span>
+        console.log('effect invoked')
+        return () => console.log('effect detected ')
+    }, [name])
+
+    // useLayoutEffect(() => {
+    //     console.log('layout effect invoked')
+    //     return () => console.log('layout effect detected ')
+    // }, [])
+
+    return (
+        <div>
+            <input value={name} onChange={(e) => setName(e.target.value)} />
+            <button onClick={() => dispatchCount({ type: 'add' })}>{count}</button>
+        </div>
+    )
 }
 
 export default MyCountFunc
