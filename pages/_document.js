@@ -2,7 +2,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 class MyDocument extends Document {
     static async getInitialProps(ctx) {
-        
+
         const props = await Document.getInitialProps(ctx)
         return {
             ...props
@@ -13,10 +13,8 @@ class MyDocument extends Document {
         return(
             <Html>
                 <Head>
-                    <title>My App</title>
-                    <style>{`.test { color: red }`}</style>
                 </Head>
-                <body className="test">
+                <body>
                     <Main />
                     <NextScript />
                 </body>
