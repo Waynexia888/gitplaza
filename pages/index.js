@@ -39,7 +39,7 @@ export default () => {
             <Link href='/a?id=1' as="/a/1">
                 <Button>Index</Button>
             </Link>
-        <Button onClick={gotoTestB}>test</Button>
+            <Button onClick={gotoTestB}>test</Button>
         </div> 
     )
 }
