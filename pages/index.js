@@ -1,6 +1,8 @@
 
 import Router from 'next/router'
 
+import store from '../store/store'
+
 
 // const events = [
 //     'routeChangeStart',
