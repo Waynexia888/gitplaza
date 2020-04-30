@@ -3,17 +3,24 @@ import React, {
     useReducer,
     useEffect,
     useLayoutEffect,
-    useContext
+    useContext,
+    useRef
 } from 'react'
 
 import MyContext from '../../lib/my-context'
 
 // class MyCount extends React.Component {
-//     state = {
-//         count: 0
+//     constructor() {
+//         super()
+//         this.ref = React.createRef()
+//         state = {
+//             count: 0
+//         }
 //     }
+    
 
 //     componentDidMount() {
+//         // this.ref.current
 //         this.interval = setInterval(() => {
 //             this.setState({ count: this.state.count + 1})
 //         }, 1000)
@@ -26,7 +33,7 @@ import MyContext from '../../lib/my-context'
 //     }
 
 //     render() {
-//         return <span>{this.state.count}</span>
+//         return <span ref={this.ref}>{this.state.count}</span>
 //     }
 // }
 // export default MyCount
@@ -49,6 +56,8 @@ function MyCountFunc() {
     const [name, setName] = useState('jocky')
 
     const context = useContext(MyContext)
+
+    const inputRef = useRef()
     // useEffect(() => {
     //     const interval = setInterval(() => {
     //         // setCount(c => c + 1)
@@ -58,7 +67,7 @@ function MyCountFunc() {
     // }, [])
 
     useEffect(() => {
-        console.log('effect invoked')
+        console.log(inputRef)
         return () => console.log('effect detected ')
     }, [name])
 
@@ -69,7 +78,7 @@ function MyCountFunc() {
 
     return (
         <div>
-            <input value={name} onChange={(e) => setName(e.target.value)} />
+            <input ref={inputRef} value={name} onChange={(e) => setName(e.target.value)} />
             <button onClick={() => dispatchCount({ type: 'add' })}>{count}</button>
             <p>{context}</p>
         </div>
