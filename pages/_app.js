@@ -1,4 +1,6 @@
 import App, { Container } from "next/app"
+import { Provider } from 'react-redux'
+import store from '../store/store'
 
 import 'antd/dist/antd.css'
 
@@ -28,10 +30,13 @@ class MyApp extends App {
         return (
            <Container>
                <Layout>
-                    <MyContext.Provider value={this.state.context}>
+                   <Provider store={store}>
+                        <MyContext.Provider value={this.state.context}>
                         <Component {...pageProps} />
                         <button onClick={() => this.setState({ context: `${this.state.context}111`})}>update context</button>
                     </MyContext.Provider>
+                   </Provider>
+                    
                </Layout>
            </Container>
         )
