@@ -4,39 +4,12 @@ import React, {
     useEffect,
     useLayoutEffect,
     useContext,
-    useRef
+    useRef,
+    memo,
+    useMemo,
+    useCallback
 } from 'react'
 
-import MyContext from '../../lib/my-context'
-
-// class MyCount extends React.Component {
-//     constructor() {
-//         super()
-//         this.ref = React.createRef()
-//         state = {
-//             count: 0
-//         }
-//     }
-    
-
-//     componentDidMount() {
-//         // this.ref.current
-//         this.interval = setInterval(() => {
-//             this.setState({ count: this.state.count + 1})
-//         }, 1000)
-//     }
-
-//     componentWillUnmount() {
-//         if (this.interval) {
-//             clearInterval(this.interval)
-//         }
-//     }
-
-//     render() {
-//         return <span ref={this.ref}>{this.state.count}</span>
-//     }
-// }
-// export default MyCount
 
 function countReducer(state, action) {
     switch (action.type) {
@@ -50,39 +23,43 @@ function countReducer(state, action) {
 }
 
 function MyCountFunc() {
-    // const [count, setCount] = useState(0) //[a, b]
 
     const [ count, dispatchCount ] = useReducer(countReducer, 0)
     const [name, setName] = useState('jocky')
 
-    const context = useContext(MyContext)
+    const config = useMemo(() => ({
+        text: `count is ${count}`,
+        color: count > 3 ? 'red' : 'blue',
+    }), [count])
 
-    const inputRef = useRef()
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         // setCount(c => c + 1)
-    //         dispatchCount({ type: 'minus' })
-    //     }, 1000)
-    //     return () => clearInterval(interval)
-    // }, [])
+    // const handleButtonClick = useCallback(
+    //     () => dispatchCount({ type: 'add' }),
+    //     []
+    // )
 
-    useEffect(() => {
-        console.log(inputRef)
-        return () => console.log('effect detected ')
-    }, [name])
-
-    // useLayoutEffect(() => {
-    //     console.log('layout effect invoked')
-    //     return () => console.log('layout effect detected ')
-    // }, [])
+    const handleButtonClick = useMemo(
+        () => () => dispatchCount({ type: 'add' }),
+        []
+    )
 
     return (
         <div>
-            <input ref={inputRef} value={name} onChange={(e) => setName(e.target.value)} />
-            <button onClick={() => dispatchCount({ type: 'add' })}>{count}</button>
-            <p>{context}</p>
+            <input value={name} onChange={(e) => setName(e.target.value)} />
+            <Child 
+                config={config}
+                onButtonClick={handleButtonClick}
+            />
         </div>
     )
 }
+
+const Child = memo(function Child({ onButtonClick, config }) {
+    console.log('child render')
+    return (
+        <button onClick={onButtonClick} style={{ color: config.color }}>
+            {config.text}
+        </button>
+    )
+})
 
 export default MyCountFunc
