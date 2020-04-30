@@ -27,6 +27,9 @@ function MyCountFunc() {
     const [ count, dispatchCount ] = useReducer(countReducer, 0)
     const [name, setName] = useState('jocky')
 
+    const countRef = useRef()
+    countRef.current = count 
+
     const config = useMemo(() => ({
         text: `count is ${count}`,
         color: count > 3 ? 'red' : 'blue',
@@ -42,6 +45,12 @@ function MyCountFunc() {
         []
     )
 
+    const handleAlertButtonClick = function() {
+        setTimeout(() => {
+            alert(countRef.current)
+        }, 2000)
+    }
+
     return (
         <div>
             <input value={name} onChange={(e) => setName(e.target.value)} />
@@ -49,6 +58,7 @@ function MyCountFunc() {
                 config={config}
                 onButtonClick={handleButtonClick}
             />
+            <button onClick={handleAlertButtonClick}>alert count</button>
         </div>
     )
 }
