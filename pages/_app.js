@@ -9,6 +9,8 @@ import Layout from "../components/Layout"
 import MyContext from "../lib/my-context"
 import { Button } from "antd"
 
+import testHoc from "../lib/test-hoc"
+
 class MyApp extends App {
     state = {
         context: 'value'
@@ -43,4 +45,4 @@ class MyApp extends App {
     }
 }
 
-export default MyApp
+export default testHoc(MyApp)

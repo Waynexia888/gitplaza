@@ -56,4 +56,6 @@ A.getInitialProps = async () => {
     return await promise
 }
 
+
+
 export default withRouter(A)
